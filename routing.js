@@ -1,9 +1,17 @@
 const express = require('express');
 var router = express.Router();
-let {mongoose} = require("./server/database/mongoose.js");
-const {customer} = require('./server/schema-model/customer.js');
-const {location} = require('./server/schema-model/IPLocation.js');
-const {photo} = require('./server/schema-model/photo.js');
+let {
+  mongoose
+} = require("./server/database/mongoose.js");
+const {
+  customer
+} = require('./server/schema-model/customer.js');
+const {
+  location
+} = require('./server/schema-model/IPLocation.js');
+const {
+  photo
+} = require('./server/schema-model/photo.js');
 
 var Client = require('node-rest-client').Client;
 var client = new Client();
@@ -25,34 +33,33 @@ const converserBase64 = require('base64-arraybuffer');
 // });
 
 
-router.get("/",(req, res) => {
+router.get("/", (req, res) => {
 
   res.render("index");
 });
 
 
 
-router.post("/CRM/addingCustomer",(req,res) => {
+router.post("/CRM/addingCustomer", (req, res) => {
 
-  console.log("response is "+JSON.stringify(req.body));
+  console.log("response is " + JSON.stringify(req.body));
 
-  let cust = new customer(
-    {
-      firstName : req.body.firstName,
-      lastName : req.body.lastName,
-      email : req.body.email,
-      address : req.body.address,
-      phno : req.body.phno
-    });
+  let cust = new customer({
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    address: req.body.address,
+    phno: req.body.phno
+  });
 
-    cust.save().then(() => {
+  cust.save().then(() => {
 
-      res.send("saves successfully");
+    res.send("saves successfully");
 
-    });
+  });
 });
 
-router.get("/CRM/gettingAllCustomer",(req,res) => {
+router.get("/CRM/gettingAllCustomer", (req, res) => {
 
   customer.find().then((data) => {
 
@@ -63,7 +70,7 @@ router.get("/CRM/gettingAllCustomer",(req,res) => {
 });
 
 
-router.delete("/CRM/deletingCustomer/:id",(req,res) => {
+router.delete("/CRM/deletingCustomer/:id", (req, res) => {
   console.log(req.params);
   customer.findByIdAndRemove(req.params.id).then(() => {
     res.send("Deleted Success");
@@ -72,30 +79,30 @@ router.delete("/CRM/deletingCustomer/:id",(req,res) => {
 
 });
 
-router.put("/CRM/updatingCustomer/:id",(req,res) => {
+router.put("/CRM/updatingCustomer/:id", (req, res) => {
   console.log(req.body);
-  customer.findByIdAndUpdate(req.params.id,
-  {firstName : req.body.firstName,
-  lastName : req.body.lastName,
-  email : req.body.email,
-  address : req.body.address,
-  phno : req.body.phno
-}).then(() => {
+  customer.findByIdAndUpdate(req.params.id, {
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    address: req.body.address,
+    phno: req.body.phno
+  }).then(() => {
     res.send("Update Success");
-  // customer.findById(req.params.id).then((data) => {
-  //
-  //   let cust = data;
-  //
-  //   for(let item of data.address)
-  //   {
-  //     console.log(item.city+"   "+item.country);
-  //   }
+    // customer.findById(req.params.id).then((data) => {
+    //
+    //   let cust = data;
+    //
+    //   for(let item of data.address)
+    //   {
+    //     console.log(item.city+"   "+item.country);
+    //   }
 
   });
 
 });
 
-router.get("/CRM/gettingSearchedCustomer/:id",(req,res) => {
+router.get("/CRM/gettingSearchedCustomer/:id", (req, res) => {
 
   customer.findById(req.params.id).then((data) => {
 
@@ -105,9 +112,11 @@ router.get("/CRM/gettingSearchedCustomer/:id",(req,res) => {
 
 });
 
-router.get("/CRM/gettingSearchedCustomerWithName/:name",(req,res) => {
+router.get("/CRM/gettingSearchedCustomerWithName/:name", (req, res) => {
 
-  customer.find({firstName : req.params.name}).then((data) => {
+  customer.find({
+    firstName: req.params.name
+  }).then((data) => {
 
     res.send(data);
 
@@ -115,10 +124,12 @@ router.get("/CRM/gettingSearchedCustomerWithName/:name",(req,res) => {
 
 });
 
-router.get("/CRM/searchImageWithName/:imageName",(req,res) => {
+router.get("/CRM/searchImageWithName/:imageName", (req, res) => {
 
   console.log(req.params.imageName);
-  photo.findOne({name : req.params.imageName}).then((data) => {
+  photo.findOne({
+    name: req.params.imageName
+  }).then((data) => {
 
     res.send(data);
 
@@ -126,19 +137,18 @@ router.get("/CRM/searchImageWithName/:imageName",(req,res) => {
 
 });
 
-router.post("/CRM/file",(req,res) => {
+router.post("/CRM/file", (req, res) => {
 
   //console.log(req.body);
 
-  let pho = new photo(
-    {
-      name : req.body.name,
-      content : req.body.content
-    });
+  let pho = new photo({
+    name: req.body.name,
+    content: req.body.content
+  });
 
-    pho.save().then(() => {
-      res.send("saved successfully");
-    });
+  pho.save().then(() => {
+    res.send("saved successfully");
+  });
 
 });
 module.exports = router;

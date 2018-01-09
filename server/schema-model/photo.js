@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
-var photo = mongoose.model("photo",
-{
-    name : String,
-    content:  String
+var photo = mongoose.model("photo", {
+    name: String,
+    content: String
 
-}
+  }
 
 );
 
-module.exports = {photo};
+module.exports = {
+  photo
+};

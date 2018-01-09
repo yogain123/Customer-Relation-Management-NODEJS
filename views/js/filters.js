@@ -1,4 +1,4 @@
-app.filter("countryFilter",() => {
+app.filter("countryFilter", () => {
 
   return (key) => {
 
@@ -8,13 +8,13 @@ app.filter("countryFilter",() => {
 
 });
 
-app.filter("uniqueId",() => {
+app.filter("uniqueId", () => {
 
   return (key) => {
-    if(key == undefined)
+    if (key == undefined)
       return null;
-    console.log("Id is "+key);
-    return key.substring(key.length-6,key.length);
+    console.log("Id is " + key);
+    return key.substring(key.length - 6, key.length);
   };
 
 });

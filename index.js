@@ -9,8 +9,13 @@ app.set('view engine', 'html');
 
 
 app.use(express.static('views'));
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+app.use(bodyParser.json({
+  limit: '50mb'
+}));
+app.use(bodyParser.urlencoded({
+  limit: '50mb',
+  extended: true
+}));
 
 
 console.log(`Project Dir ${__filename}`);
