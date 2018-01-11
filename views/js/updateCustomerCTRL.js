@@ -6,7 +6,7 @@ app.controller("updateCustomerCtrl", function($scope, $state, $http) {
 
     var url = "/CRM/updatingCustomer/" + item._id;
 
-    $http.put(url, JSON.stringify($scope.personDetails)).then(() => {
+    $http.post(url, JSON.stringify($scope.personDetails)).then(() => {
       console.log("Success");
       $state.go('/', {
         reload: false

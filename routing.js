@@ -1,17 +1,9 @@
 const express = require('express');
 var router = express.Router();
-let {
-  mongoose
-} = require("./server/database/mongoose.js");
-const {
-  customer
-} = require('./server/schema-model/customer.js');
-const {
-  location
-} = require('./server/schema-model/IPLocation.js');
-const {
-  photo
-} = require('./server/schema-model/photo.js');
+let {mongoose} = require("./server/database/mongoose.js");
+const {customer} = require('./server/schema-model/customer.js');
+const {location} = require('./server/schema-model/IPLocation.js');
+const {photo} = require('./server/schema-model/photo.js');
 
 var Client = require('node-rest-client').Client;
 var client = new Client();
@@ -79,8 +71,8 @@ router.delete("/CRM/deletingCustomer/:id", (req, res) => {
 
 });
 
-router.put("/CRM/updatingCustomer/:id", (req, res) => {
-  console.log(req.body);
+router.post("/CRM/updatingCustomer/:id", (req, res) => {
+  //console.log(req.body);
   customer.findByIdAndUpdate(req.params.id, {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -88,6 +80,7 @@ router.put("/CRM/updatingCustomer/:id", (req, res) => {
     address: req.body.address,
     phno: req.body.phno
   }).then(() => {
+    console.log("updateDone");
     res.send("Update Success");
     // customer.findById(req.params.id).then((data) => {
     //

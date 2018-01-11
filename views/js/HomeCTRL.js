@@ -101,7 +101,7 @@ app.controller("homeCtrl", function($scope, $http, $state, $timeout) {
     $http.get(url).then((data) => {
 
       $scope.imageData = data.data;
-      console.log("image DATA is " + JSON.stringify($scope.imageData));
+      //console.log("image DATA is " + JSON.stringify($scope.imageData));
       console.log("success");
       if ($scope.imageData == "" || $scope.imageData == undefined || $scope.imageData == null)
         $scope.check = false;
